@@ -136,7 +136,8 @@ app.post('/api/chat', async (req: Request, res: Response) => {
         },
       });
 
-      return res.json({ reply: response.text });
+      const replyText = response.text?.trim();
+      return res.json({ reply: replyText || '### MechApp Studio AI 🤖\n\nGot an empty response this time — please try asking again!' });
     }
 
     // Grounded knowledge fallback if API key is not configured
@@ -256,7 +257,30 @@ app.post('/api/chat', async (req: Request, res: Response) => {
     return res.json({ reply: fallbackReply });
   } catch (error: any) {
     console.error('Error in /api/chat:', error);
-    return res.status(500).json({ error: error.message || 'Server error processing request' });
+
+    // Friendly degradation: never surface raw errors to students
+    const errText = String(error?.message || '');
+    const isOverloaded =
+      errText.includes('503') ||
+      errText.includes('UNAVAILABLE') ||
+      errText.includes('high demand') ||
+      errText.includes('429') ||
+      errText.includes('RESOURCE_EXHAUSTED') ||
+      errText.includes('quota');
+
+    const friendlyReply = isOverloaded
+      ? `### MechApp Studio AI is taking a short break 🤖
+
+The AI tutor is a little too popular right now (Gemini is at peak traffic). Give it 1–2 minutes and ask again — your question will be answered with full rigour.
+
+Meanwhile, you can open the **Week's Lab Simulator** or check the **Tutorial Questions** below.`
+      : `### MechApp Studio AI is taking a short break 🤖
+
+Something went wrong on the AI side. Please try again in a moment.
+
+If it keeps happening, let your lecturer know — your module content, simulators and resources still work fine!`;
+
+    return res.json({ reply: friendlyReply, isFallback: true });
   }
 });
 
