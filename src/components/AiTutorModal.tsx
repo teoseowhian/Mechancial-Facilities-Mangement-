@@ -117,13 +117,7 @@ How can I help you understand your plant room or exam problems today? Pick a qui
       const errorMsg: ChatMessage = {
         id: `bot-err-${Date.now()}`,
         role: 'assistant',
-        text: `### [COSTAR Response] MechApp Studio AI
-**Content:** Mechanical Systems Technical Guidance
-**Objective:** Address your query on "${query}"
-**Structure:**
-- **Formula & Standard:** Reference governing Singapore standard (SS 553 / SS 636 / Fire Code 2023).
-- **Working Step:** Ensure all mechanical calculations carry units and step-by-step logic.
-*(Note: Server processed offline knowledge base response).*`,
+        text: `The AI Tutor isn't available on this version of the site. It needs the AI Studio server to reach Gemini. Everything else in the app works here, and you can use the AI Tutor in the AI Studio version of the app.`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, errorMsg]);
