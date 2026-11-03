@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: mech-fm-suite
+    runtime: node
+    repo: https://github.com/teoseowhian/Mechancial-Facilities-Mangement-
+    plan: free
+    buildCommand: npm install --legacy-peer-deps --include=dev && npm run build
+    startCommand: NODE_ENV=production node --import tsx server.ts
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: APP_URL
+        sync: false
