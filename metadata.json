@@ -1,0 +1,6 @@
+{
+  "name": "Mech for FM AI — DCFM Mechanical Systems Suite",
+  "description": "Comprehensive Mechanical & Building Services Engineering Suite for Diploma in Facilities Management (DCFM / 101MS3, Ngee Ann Polytechnic) — HVAC & Chillers, Mechanical Ventilation (SS 553), Sanitary Plumbing, Water Supply (SS 636), Fire Code 2023, and Town Gas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
